@@ -7,4 +7,4 @@
 - Typescript
 - React Router DOM
 - Styled Components
-- 
+- Phosphor React

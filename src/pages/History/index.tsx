@@ -1,3 +1,9 @@
+import { Container } from './styles'
+
 export function History() {
-  return <h1>Historico </h1>
+  return (
+    <Container>
+      <p>History</p>
+    </Container>
+  )
 }
