@@ -1,5 +1,6 @@
 import { Play } from 'phosphor-react'
-import { useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
 import { useForm } from 'react-hook-form';
 
 import {
@@ -12,11 +13,25 @@ import {
   MinutesAmountInput,
 } from './styles'
 
+const schemaFormValidation = zod.object({
+  task: zod.string().min(1, 'Irforme a tarefa').max(255),
+  minutesAmount: zod.number()
+    .min(5, 'O ciclo tem que ser no mínimo de 5 minutos')
+    .max(60, 'O ciclo tem que ser no máximo de 60 minutos'),
+})
+
+type FormData = zod.infer<typeof schemaFormValidation>
 
 export function Home() {
-  const { register, handleSubmit, watch } = useForm()
+  const { register, handleSubmit, watch } = useForm<FormData>({
+    resolver: zodResolver(schemaFormValidation),
+    defaultValues: {
+      task: '',
+      minutesAmount: 0,
+    },
+  })
 
-  function handleCreateSubmit(data: any) {
+  function handleCreateSubmit(data: FormData) {
     console.log(data);
   }
 
