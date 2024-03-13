@@ -1,4 +1,7 @@
 import { Play } from 'phosphor-react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form';
+
 import {
   Container,
   FormContainer,
@@ -9,17 +12,27 @@ import {
   MinutesAmountInput,
 } from './styles'
 
+
 export function Home() {
+  const { register, handleSubmit, watch } = useForm()
+
+  function handleCreateSubmit(data: any) {
+    console.log(data);
+  }
+
+  const task = watch('task')
+  const isSubmitDisabled = !task
+
   return (
     <Container>
-      <form action="">
+      <form action="" onSubmit={handleSubmit(handleCreateSubmit)}>
         <FormContainer>
           <label htmlFor="task">Vou trabalhar em</label>
           <TaskInput
-            type="text"
             id="task"
             placeholder="Dê um nome para seu projeto"
             list='task-sugestion'
+            {...register('task')}
           />
           <datalist id='task-sugestion'>
             <option value="Projeto1" />
@@ -36,6 +49,7 @@ export function Home() {
             step={5}
             min={5}
             max={60}
+            {...register('minutesAmount', { valueAsNumber: true })}
           />
           <span>minutos.</span>
         </FormContainer>
@@ -47,7 +61,7 @@ export function Home() {
           <span>0</span>
         </CountContainer>
 
-        <StartButton disabled type="submit">
+        <StartButton disabled={isSubmitDisabled} type="submit">
           <Play size={24} />
           Começar
         </StartButton>

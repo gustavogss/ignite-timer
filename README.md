@@ -1,10 +1,15 @@
-# Ignite Timer 
+# Ignite Timer
+
 - Cronômetro com histórico de paradas
 
 ## Stacks utilizadas :robot:
-- ViteJs
-- React
-- Typescript
-- React Router DOM
-- Styled Components
-- Phosphor React
+
+- [ViteJs](https://vitejs.dev/guide/)
+- [React](https://react.dev/learn)
+- [Typescript](https://www.typescriptlang.org/docs/)
+- [React Router DOM](https://v5.reactrouter.com/web/guides/quick-start)
+- [Styled Components](https://styled-components.com/docs)
+- [Phosphor React](https://github.com/phosphor-icons/homepage#phosphor-icons)
+- [React Hook Forms](https://react-hook-form.com/get-started)
+- [Zod](https://zod.dev/?id=installation)
+- [Hook Form Resolver](https://www.npmjs.com/package/@hookform/resolvers)
