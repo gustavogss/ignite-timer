@@ -30,13 +30,14 @@ interface Cycle {
   task: string;
   minutesAmount: number;
   startDate: Date;
+  interruptDate?: Date;
 }
 
 export function Home() {
-  const [cycle, setCycle] = useState<Cycle[]>([]);
+  const [cycles, setCycles] = useState<Cycle[]>([]);
   const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
   const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
-  const activeCycle = cycle.find((cycle) => cycle.id === activeCycleId)
+  const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 
   const { register, handleSubmit, watch, reset } = useForm<FormData>({
     resolver: zodResolver(schemaFormValidation),
@@ -65,15 +66,25 @@ export function Home() {
       minutesAmount: data.minutesAmount,
       startDate: new Date(),
     }
-    setCycle((state) => [...state, newCycle])
+    setCycles((state) => [...state, newCycle])
     setActiveCycleId(id)
     setAmountSecondsPassed(0)
     reset();
   }
 
-  function handleInterrumpCycle() {
-    setActiveCycleId(null);
+  function handleInterruptCycle() {
+    setCycles(
+      cycles.map((cycle) => {
+        if (cycle.id === activeCycleId) {
+          return { ...cycle, interruptedDate: new Date() }
+        } else {
+          return cycle
+        }
+      }),
+    )
+    setActiveCycleId(null)
   }
+
 
   const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0
   const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0
@@ -133,7 +144,7 @@ export function Home() {
           <span>{seconds[1]}</span>
         </CountContainer>
         {activeCycle ? (
-          <StopCountButton type="button">
+          <StopCountButton onClick={handleInterruptCycle} type="button">
             <HandPalm size={24} />
             Interromper
           </StopCountButton>
