@@ -1,6 +1,6 @@
 # Ignite Timer
 
-- Cronômetro com histórico de paradas
+- Aplicação tipo um cronômetro com histórico de paradas
 
 ## Stacks utilizadas :robot:
 
